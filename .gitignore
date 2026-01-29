@@ -1,0 +1,110 @@
+# Visual Studio / .NET Core
+## Build
+bin/
+obj/
+out/
+publish/
+*.dll
+*.exe
+*.app
+*.so
+*.dylib
+
+## Rider / IntelliJ
+.idea/
+*.sln.iml
+*.DotSettings.user
+*.suo
+*.user
+*.userosscache
+*.sln.dotCover
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+
+## Visual Studio
+.vs/
+.vscode/
+*.VC.db
+*.VC.opendb
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.assets.json
+.nuget/packages/
+.nuget// (keep as pattern for local caches)
+
+## Rider caches & system files
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+
+## Build results / logs
+TestResults/
+*.log
+build/
+coverage/
+coverage*.xml
+.vs/TestResults/
+
+## Debug / launch
+*.pidb
+*.pdb
+*.mdb
+*.cache
+*.ilk
+*.meta
+*.obj
+*.rsp
+*.sbr
+
+## User-specific files
+*.user
+*.userosscache
+*.csproj.user
+*.dbmdl
+*.suo
+*.ntvs*
+*.vspscc
+*.vssscc
+
+## Entity Framework / database
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+## Roslyn & analyzers
+*.ide.*.cache
+
+## StyleCop / ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings
+resharper.*.xml
+
+## Temporary files
+*.tmp
+*.temp
+~$*
+*.swp
+
+## Frontend / tooling (optional)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+## Secrets / local settings
+**/secrets.json
+.env
+.env.local
+.env.*.local
+
+# End of .gitignore
