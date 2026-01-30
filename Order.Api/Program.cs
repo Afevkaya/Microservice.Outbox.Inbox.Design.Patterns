@@ -38,13 +38,15 @@ app.MapPost("/create-order", async
                 Quantity = oi.Quantity,
                 UnitPrice = oi.UnitPrice
             }).ToList(),
-            CreatedDate = DateTime.UtcNow
+            CreatedDate = DateTime.UtcNow,
         };
 
         await dbContext.Orders.AddAsync(order);
         await dbContext.SaveChangesAsync();
 
-        OrderCreatedEvent orderCreatedEvent = new(order.BuyerId, order.Id, order.TotalPrice,
+        var idempotentToken = Guid.NewGuid();
+        
+        OrderCreatedEvent orderCreatedEvent = new(idempotentToken, order.BuyerId, order.Id, order.TotalPrice,
             model.OrderItems.Select(oi => new OrderItemMessage(oi.ProductId, oi.Quantity, oi.UnitPrice)).ToList());
         #region Outbox Pattern Olmadan
 
@@ -62,7 +64,8 @@ app.MapPost("/create-order", async
             OccuredOn = DateTime.UtcNow,
             ProcessDate = null,
             Type = orderCreatedEvent.GetType().Name,
-            Payload = JsonSerializer.Serialize(orderCreatedEvent)
+            Payload = JsonSerializer.Serialize(orderCreatedEvent),
+            IdempotentToken = idempotentToken
         };
         
         await dbContext.OrderOutboxes.AddAsync(orderOutbox);

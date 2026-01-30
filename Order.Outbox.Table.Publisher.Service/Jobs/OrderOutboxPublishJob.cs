@@ -21,9 +21,9 @@ public class OrderOutboxPublishJob(IPublishEndpoint publishEndpoint, OrderOutbox
             if (orderCreatedEvent == null) continue;
             await publishEndpoint.Publish(orderCreatedEvent, context.CancellationToken);
             await database.ExecuteAsync(
-                $"UPDATE ORDEROUTBOXES SET PROCESSDATE = GETDATE() WHERE ID = '{orderOutbox.Id}'");
+                $"UPDATE ORDEROUTBOXES SET PROCESSDATE = GETDATE() WHERE IdempotentToken = '{orderOutbox.IdempotentToken}'");
             
-            await Console.Out.WriteLineAsync($"OrderOutboxId: {orderOutbox.Id} published.");
+            await Console.Out.WriteLineAsync($"OrderOutboxId: {orderOutbox.IdempotentToken} published.");
         }
     }
 }
